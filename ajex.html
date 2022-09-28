@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Admission Form</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- === Google Fonts === -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Poppins, Major Mono Display -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <main class="form__container">
+    <div class="form__wrapper">
+      <form id="admission-form">
+        <h1 class="form__title">Student Admission Form </h1>
+        <!-- === Personal Details === -->
+        <h3 class="form__section-title">Fill Personal Details</h3>
+        <!-- First Name -->
+        <div class="form__input-control">
+          <label for="first-name" class="form__input-label">First Name</label>
+          <input type="text" name="first-name" id="first-name" />
+        </div>
+
+        <!-- Last Name -->
+        <div class="form__input-control">
+          <label for="last-name" class="form__input-label">Last Name</label>
+          <input type="text" name="last-name" id="last-name" />
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form__input-control">
+          <label for="phone" class="form__input-label">Phone Number</label>
+          <input type="text" name="phone" id="phone" />
+        </div>
+
+        <!-- Email -->
+        <div class="form__input-control">
+          <label for="email" class="form__input-label">Email</label>
+          <input type="email" name="email" id="email" />
+        </div>
+
+        <!-- === Academic Details === -->
+
+        <h3 class="form__section-title">Fill Academic Details</h3>
+        <!-- 10th score -->
+        <div class="form__input-control score">
+          <label for="score-10" class="form__input-label">10th Percent</label>
+          <div class="form__input-group">
+            <input type="number" name="score-10" id="score-10" />
+            <span>%</span>
+          </div>
+        </div>
+
+        <!-- 12th score -->
+        <div class="form__input-control score">
+          <label for="score-12" class="form__input-label">12th Percent</label>
+          <div class="form__input-group">
+            <input type="number" name="score-12" id="score-12" />
+            <span>%</span>
+          </div>
+        </div>
+
+        <!-- CET score -->
+        <div class="form__input-control score">
+          <label for="score-cet" class="form__input-label">CET Percentile</label>
+          <div class="form__input-group">
+            <input type="number" name="score-cet" id="score-cet" />
+            <span>%</span>
+          </div>
+        </div>
+
+        <!-- JEE score -->
+        <div class="form__input-control score">
+          <label for="score-jee" class="form__input-label">JEE Percentile</label>
+          <div class="form__input-group">
+            <input type="number" name="score-jee" id="score-jee" />
+            <span>%</span>
+          </div>
+        </div>
+
+        <!-- === Preferences === -->
+
+        <h3 class="form__section-title">Choose Preferences</h3>
+        <!-- 1st Preference -->
+        <div class="form__input-control">
+          <label for="first-pref" class="form__input-label">1st Preference</label>
+          <select type="first-pref" name="first-pref" id="first-pref"></select>
+        </div>
+
+        <!-- 2nd Preference -->
+        <div class="form__input-control">
+          <label for="first-pref" class="form__input-label">2nd Preference</label>
+          <select type="second-pref" name="second-pref" id="second-pref"></select>
+        </div>
+
+        <!-- 3rd Preference -->
+        <div class="form__input-control">
+          <label for="first-pref" class="form__input-label">3rd Preference</label>
+          <select type="third-pref" name="third-pref" id="third-pref"></select>
+         
+        </div>
+
+        <button class="submit-btn" id="submit-btn" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // === Preferences ===
+    const firstPrefChoice = document.getElementById("first-pref");
+    const secondPrefChoice = document.getElementById("second-pref");
+    const thirdPrefChoice = document.getElementById("third-pref");
+
+    const options = [
+      "Computer Engineering",
+      "Aritificial Intelligence and Data Science",
+      "Mechaincal Engineering",
+      "Electrical Engineering",
+    ];
+
+    function appendOptions(prefChoice) {
+      options.forEach((o) => {
+        const option = document.createElement("option");
+        option.innerHTML = o;
+        option.value = o;
+        prefChoice.appendChild(option);
+      });
+    }
+
+    appendOptions(firstPrefChoice);
+    appendOptions(secondPrefChoice);
+    appendOptions(thirdPrefChoice);
+
+    // === Form Validation ===
+    const form = document.getElementById("admission-form");
+
+    const submitBtn = document.getElementById("submit-btn");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      const firstNameInput = document.getElementById("first-name").value;
+      const lastNameInput = document.getElementById("last-name").value;
+      const phoneInput = document.getElementById("phone").value;
+      const emailInput = document.getElementById("email").value;
+      const score10 = document.getElementById("score-10").value;
+      const score12 = document.getElementById("score-12").value;
+      const scoreCet = document.getElementById("score-cet").value;
+      const scoreJee = document.getElementById("score-jee").value;
+
+      if (data["first-name"].length < 3) alert("First Name shouldn't be < 3");
+      else if (data["last-name"].length < 3)
+        alert("First Name shouldn't have special chars");
+      else if (data["phone"].length < 10 && !/^[0-9]$/.test(phoneInput))
+        alert("Invalid phone no");
+      else if (!/(.+)@(.+){2,}\.(.+){2,}/.test(data["email"]))
+        alert("Invalid email");
+      else if (data["score-10"] > 100 && 0 < formData["score-10"])
+        alert("10th Percent cannot be greater than 100 and less than 0");
+      else if (data["score-12"] > 100 && 0 < formData["score-12"])
+        alert("12th Percent cannot be greater than 100 and less than 0");
+      else if (data["score-cet"] > 100 && 0 < formData["score-cet"])
+        alert("CET percentile cannot be greater than 100 and less than 0");
+      else if (data["score-jee"] > 100 && 0 < formData["score-jee"])
+        alert("JEE percentile cannot be greater than 100 and less than 0");
+      else showResult(data);
+    });
+
+    function showForm() {
+      location.reload();
+    }
+    // Converting form data to json object 
+    function showResult(data) {
+      document.getElementsByClassName(
+        "form__wrapper"
+      )[0].innerHTML = `<pre>${JSON.stringify(data, null, 3)}</pre>
+        <button onclick="showForm()">Back to Form</button`;
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        console.log(this);
+        if (this.readyState === 4 && this.status === 200) return;
+      };
+      xhttp.open("POST", "localhost:5000", true);
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.send("");
+      formToJSON(this)
+    }
+
+
+  </script>
+</body>
+
+</html>
